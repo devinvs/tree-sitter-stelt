@@ -15,7 +15,28 @@ module.exports = grammar({
       $.function_definition,
       $.type_definition,
       $.type_declaration,
-      $.import
+      $.import,
+      $.type_function,
+      $.impl,
+    ),
+
+    impl: $ => seq(
+      "impl",
+      field("name", $.ident),
+      "(",
+      csv($.type),
+      ")"
+    ),
+
+    type_function: $ => seq(
+      "typefn",
+      field("name", $.ident),
+      optional($.gen_args),
+      "(",
+      csv($.ident),
+      ")",
+      "=",
+      $.type
     ),
 
     import: $ => seq(
